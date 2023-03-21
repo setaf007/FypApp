@@ -62,6 +62,13 @@ services:
   spark:
     build: ./spark
 
+  visualizeapp:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./Visualization
+    ports:
+      - '8501:8501'
+
 volumes:
   hadoop_namenode:
   hadoop_datanode:

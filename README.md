@@ -48,3 +48,9 @@ PS : Use docker ps to check container ID
 
 PS: to leave from Scala cmd use Ctrl-D
 PS: to leave from bash cmd use Ctrl-Z
+
+# Data Visualization
+
+1) docker cp C:\Users\USER\Desktop\FypApp\DataStorage\data\weather.csv (namenode Container ID):/weather.csv
+
+2) docker run -p 8501:8501 fypapp-visualizeapp
