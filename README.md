@@ -51,6 +51,28 @@ PS: to leave from bash cmd use Ctrl-Z
 
 # Data Visualization
 
-1) docker cp C:\Users\USER\Desktop\FypApp\DataStorage\data\weather.csv (namenode Container ID):/weather.csv
+hadoop_namenode:/hadoop/dfs/name
 
-2) docker run -p 8501:8501 fypapp-visualizeapp
+
+**Run new instance of Streamlit container**
+docker run -p 8501:8501 fypapp-visualizeapp
+**Copy from HDFS to local storage**
+docker cp (namenode container id):tmp\weather.csv C:\Users\taskin.intern\"OneDrive - Razer (Asia-Pacific) Pte. Ltd"\Desktop\weather.csv
+**Copy from local storage to streamlit container**
+docker cp C:\Users\taskin.intern\"OneDrive - Razer (Asia-Pacific) Pte. Ltd"\Desktop\weather.csv (visualizer Container ID):/weather.csv
+
+**Some useful commands**
+docker ps --format "{{.Names}}"
+C:\Users\taskin.intern\"OneDrive - Razer (Asia-Pacific) Pte. Ltd"\Desktop\tmp
+C:\"Program Files (x86)"\FypApp\FypApp\DataStorage\data
+
+
+**Option to use volumes**
+*Copy from hdfs to streamlit via shared volume*
+docker volume create shared_volume
+docker run -it --name hdfs_container -v shared_volume:/shared hdfs_image
+docker exec -it hdfs_container bash
+hdfs dfs -copyFromLocal /path/to/local/file /shared/file
+docker run -it --name streamlit_container -v shared_volume:/shared streamlit_image
+docker exec -it streamlit_container bash
+cat /shared/file
